@@ -1,0 +1,55 @@
+RENDER ENVIRONMENT VARIABLES - COPY & PASTE FORMAT
+==================================================
+
+🚨 CRITICAL: Generate new JWT secrets first!
+Run these commands to generate secure secrets:
+
+node -e "console.log('JWT_SECRET=' + require('crypto').randomBytes(32).toString('hex'))"
+node -e "console.log('JWT_REFRESH_SECRET=' + require('crypto').randomBytes(32).toString('hex'))"
+
+📋 COPY THESE TO RENDER DASHBOARD:
+=================================
+
+NODE_ENV=production
+PORT=10000
+SOCKET_PORT=10000
+
+JWT_SECRET=REPLACE_WITH_GENERATED_SECRET_FROM_ABOVE
+JWT_REFRESH_SECRET=REPLACE_WITH_OTHER_GENERATED_SECRET_FROM_ABOVE
+
+MONGODB_URI=mongodb+srv://ecommerce_faq:Balaji90@chatbot.cvd1i2p.mongodb.net/ecommerce_faq?appName=Chatbot
+MONGODB_DB_NAME=ecommerce_faq
+FAQ_COLLECTION_NAME=faq_knowledge_base
+
+GOOGLE_API_KEY=AIzaSyCADdcipExIK1qDr2OxqlYQRez71tmBo4A
+GEMINI_MODEL=gemini-pro
+GOOGLE_EMBEDDING_MODEL=text-embedding-004
+GOOGLE_EMBEDDING_DIMENSIONS=768
+
+CORS_ORIGINS=https://your-frontend-domain.com,http://localhost:5173
+
+BCRYPT_ROUNDS=12
+RATE_LIMIT_WINDOW_MS=900000
+RATE_LIMIT_MAX_REQUESTS=5
+
+VECTOR_SEARCH_INDEX_NAME=vector_search_index
+SIMILARITY_THRESHOLD_HIGH=0.85
+SIMILARITY_THRESHOLD_LOW=0.75
+MAX_RETRIEVAL_RESULTS=3
+MAX_CONTEXT_LENGTH=4000
+
+CACHE_MESSAGE_TTL=3600
+CACHE_RESPONSE_TTL=86400
+CACHE_SESSION_TTL=900
+CACHE_USER_TTL=1800
+
+REDIS_ENABLED=false
+
+⚠️ IMPORTANT CHANGES NEEDED:
+===========================
+
+1. REPLACE "REPLACE_WITH_GENERATED_SECRET_FROM_ABOVE" with actual generated secrets
+2. REPLACE "https://your-frontend-domain.com" with your actual frontend URL
+3. Keep all other values as they are
+
+🎯 TOTAL: 25 environment variables to add to Render
