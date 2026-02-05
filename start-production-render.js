@@ -180,8 +180,15 @@ app.post('/auth/register', async (req, res) => {
         );
         
         res.json({
+            success: true,
             message: 'User registered successfully',
-            user: { email: user.email, firstName: user.firstName, lastName: user.lastName },
+            user: { 
+                id: user.email,
+                email: user.email, 
+                name: `${user.firstName} ${user.lastName}`,
+                firstName: user.firstName, 
+                lastName: user.lastName 
+            },
             accessToken,
             refreshToken
         });
@@ -216,8 +223,13 @@ app.post('/auth/login', async (req, res) => {
         );
         
         res.json({
+            success: true,
             message: 'Login successful',
-            user: { email },
+            user: { 
+                id: email,
+                email,
+                name: email
+            },
             accessToken,
             refreshToken
         });
