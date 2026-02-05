@@ -19,7 +19,7 @@ Google detected your API key in a public place and disabled it for security.
 4. Find or add these:
    ```
    GOOGLE_API_KEY = paste-your-new-key-here
-   GEMINI_MODEL = gemini-1.5-flash
+   GEMINI_MODEL = gemini-1.5-pro
    ```
 5. Click **"Save Changes"**
 
@@ -28,26 +28,28 @@ Google detected your API key in a public place and disabled it for security.
 - Watch the logs for: `✅ Google Gemini Service initialized`
 - Then test your app!
 
-## What I Fixed
+## What I Just Fixed
 
+✅ **Added missing auth endpoints** - `/auth/profile`, `/auth/logout`, `/auth/refresh`
+✅ **Fixed Gemini model** - Changed to `gemini-1.5-pro` (the correct model name)
 ✅ **Disabled rate limiter** - No more 429 errors
-✅ **Dashboard reload** - Will work after rate limiter fix deploys
-✅ **Updated model config** - Ready for gemini-1.5-flash
+✅ **Dashboard reload** - Will work after deploy
 
 ## After You Update the API Key
 
 Everything will work:
 - ✅ AI responses will be intelligent
-- ✅ Dashboard reload will work
+- ✅ Dashboard reload will work (no more 404)
 - ✅ No more 403/429 errors
 - ✅ WebSocket stays connected
+- ✅ Profile loads correctly
 
 ## Test After Fix
 
 1. Login to: https://customer-front-eight.vercel.app
 2. Ask: "How do I track my order?"
 3. Should get a real answer (not error)
-4. Refresh dashboard - should stay on page
+4. **Refresh dashboard (F5)** - should stay on page with your info
 
 ## Need Help?
 
@@ -55,4 +57,4 @@ Check `URGENT_API_KEY_FIX.md` for detailed instructions.
 
 ---
 
-**Do this now**: Get new API key → Update Render → Wait 5 min → Test!
+**Do this now**: Get new API key → Update Render with `gemini-1.5-pro` → Wait 5 min → Test!
