@@ -1,0 +1,3 @@
+@echo off
+echo 🚀 Starting Redis Server...
+C:\Redis\redis-server.exe
