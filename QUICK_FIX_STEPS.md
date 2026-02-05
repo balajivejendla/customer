@@ -19,7 +19,7 @@ Google detected your API key in a public place and disabled it for security.
 4. Find or add these:
    ```
    GOOGLE_API_KEY = paste-your-new-key-here
-   GEMINI_MODEL = gemini-1.5-pro
+   GEMINI_MODEL = gemini-2.5-flash
    ```
 5. Click **"Save Changes"**
 
@@ -31,7 +31,7 @@ Google detected your API key in a public place and disabled it for security.
 ## What I Just Fixed
 
 ✅ **Added missing auth endpoints** - `/auth/profile`, `/auth/logout`, `/auth/refresh`
-✅ **Fixed Gemini model** - Changed to `gemini-1.5-pro` (the correct model name)
+✅ **Fixed Gemini model** - Changed to `gemini-2.5-flash` (the CORRECT model name for 2026)
 ✅ **Disabled rate limiter** - No more 429 errors
 ✅ **Dashboard reload** - Will work after deploy
 
@@ -57,4 +57,4 @@ Check `URGENT_API_KEY_FIX.md` for detailed instructions.
 
 ---
 
-**Do this now**: Get new API key → Update Render with `gemini-1.5-pro` → Wait 5 min → Test!
+**Do this now**: Get new API key → Update Render with `gemini-2.5-flash` → Wait 5 min → Test!
