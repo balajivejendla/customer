@@ -62,21 +62,19 @@ app.use(cors({
     allowedHeaders: ['Content-Type', 'Authorization']
 }));
 
-// Rate limiting
+// Rate limiting - TEMPORARILY DISABLED due to 429 errors
+// TODO: Re-enable with proper configuration after testing
+/*
 const limiter = rateLimit({
-    windowMs: parseInt(process.env.RATE_LIMIT_WINDOW_MS) || 15 * 60 * 1000, // 15 minutes
-    max: parseInt(process.env.RATE_LIMIT_MAX_REQUESTS) || 100, // limit each IP to 100 requests per windowMs
+    windowMs: parseInt(process.env.RATE_LIMIT_WINDOW_MS) || 15 * 60 * 1000,
+    max: parseInt(process.env.RATE_LIMIT_MAX_REQUESTS) || 100,
     message: 'Too many requests from this IP, please try again later.',
     standardHeaders: true,
     legacyHeaders: false,
-    // Skip rate limiting for trusted proxies (Render)
     skip: (req) => {
-        // Skip if no x-forwarded-for header (direct connection)
         return !req.headers['x-forwarded-for'];
     },
-    // Use a simple key generator that handles proxy headers safely
     keyGenerator: (req) => {
-        // Try to get real IP from various headers
         return req.headers['x-forwarded-for']?.split(',')[0]?.trim() || 
                req.headers['x-real-ip'] || 
                req.ip || 
@@ -86,6 +84,7 @@ const limiter = rateLimit({
 });
 
 app.use('/auth', limiter);
+*/
 
 // Body parsing middleware
 app.use(express.json({ limit: '10mb' }));
