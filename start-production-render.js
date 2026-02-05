@@ -253,6 +253,104 @@ app.post('/auth/login', async (req, res) => {
     }
 });
 
+// Get user profile endpoint
+app.get('/auth/profile', (req, res) => {
+    try {
+        const authHeader = req.headers.authorization;
+        
+        if (!authHeader || !authHeader.startsWith('Bearer ')) {
+            return res.status(401).json({ error: 'No token provided' });
+        }
+        
+        const token = authHeader.substring(7);
+        
+        try {
+            const decoded = jwt.verify(token, JWT_SECRET, {
+                issuer: 'toxicity-api',
+                audience: 'toxicity-client'
+            });
+            
+            res.json({
+                success: true,
+                user: {
+                    id: decoded.userId,
+                    email: decoded.email,
+                    name: decoded.email
+                }
+            });
+        } catch (jwtError) {
+            if (jwtError.name === 'TokenExpiredError') {
+                return res.status(403).json({ error: 'Token expired' });
+            }
+            return res.status(401).json({ error: 'Invalid token' });
+        }
+        
+    } catch (error) {
+        console.error('Profile error:', error);
+        res.status(500).json({ error: 'Failed to fetch profile' });
+    }
+});
+
+// Logout endpoint
+app.post('/auth/logout', (req, res) => {
+    try {
+        // In a real app, you'd invalidate the refresh token here
+        // For now, just return success
+        res.json({
+            success: true,
+            message: 'Logged out successfully'
+        });
+    } catch (error) {
+        console.error('Logout error:', error);
+        res.status(500).json({ error: 'Logout failed' });
+    }
+});
+
+// Refresh token endpoint
+app.post('/auth/refresh', (req, res) => {
+    try {
+        const { refreshToken } = req.body;
+        
+        if (!refreshToken) {
+            return res.status(400).json({ error: 'Refresh token required' });
+        }
+        
+        try {
+            const decoded = jwt.verify(refreshToken, JWT_REFRESH_SECRET, {
+                issuer: 'toxicity-api',
+                audience: 'toxicity-client'
+            });
+            
+            // Generate new tokens
+            const newAccessToken = jwt.sign(
+                { userId: decoded.userId, email: decoded.email },
+                JWT_SECRET,
+                { expiresIn: '15m', issuer: 'toxicity-api', audience: 'toxicity-client' }
+            );
+            
+            const newRefreshToken = jwt.sign(
+                { userId: decoded.userId, email: decoded.email },
+                JWT_REFRESH_SECRET,
+                { expiresIn: '7d', issuer: 'toxicity-api', audience: 'toxicity-client' }
+            );
+            
+            res.json({
+                success: true,
+                tokens: {
+                    accessToken: newAccessToken,
+                    refreshToken: newRefreshToken
+                }
+            });
+        } catch (jwtError) {
+            return res.status(401).json({ error: 'Invalid refresh token' });
+        }
+        
+    } catch (error) {
+        console.error('Refresh error:', error);
+        res.status(500).json({ error: 'Token refresh failed' });
+    }
+});
+
 // Socket.IO setup on the same server
 const io = socketIo(server, {
     cors: {

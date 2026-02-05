@@ -8,7 +8,7 @@ class GeminiService {
         this.genAI = null;
         this.model = null;
         this.isAvailable = false;
-        this.modelName = process.env.GEMINI_MODEL || 'gemini-1.5-flash';
+        this.modelName = process.env.GEMINI_MODEL || 'gemini-1.5-pro';
         this.maxContextLength = parseInt(process.env.MAX_CONTEXT_LENGTH) || 4000;
         
         this.initialize();
