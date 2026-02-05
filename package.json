@@ -4,7 +4,7 @@
   "description": "JWT Authentication Backend with WebSocket support",
   "main": "server.js",
   "scripts": {
-    "start": "node start-production.js",
+    "start": "node start-production-render.js",
     "start:dev": "node server.js",
     "start:socket": "node sockets.js",
     "dev": "nodemon server.js",
