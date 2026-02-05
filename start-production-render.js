@@ -69,6 +69,20 @@ const limiter = rateLimit({
     message: 'Too many requests from this IP, please try again later.',
     standardHeaders: true,
     legacyHeaders: false,
+    // Skip rate limiting for trusted proxies (Render)
+    skip: (req) => {
+        // Skip if no x-forwarded-for header (direct connection)
+        return !req.headers['x-forwarded-for'];
+    },
+    // Use a simple key generator that handles proxy headers safely
+    keyGenerator: (req) => {
+        // Try to get real IP from various headers
+        return req.headers['x-forwarded-for']?.split(',')[0]?.trim() || 
+               req.headers['x-real-ip'] || 
+               req.ip || 
+               req.connection.remoteAddress || 
+               'unknown';
+    }
 });
 
 app.use('/auth', limiter);
